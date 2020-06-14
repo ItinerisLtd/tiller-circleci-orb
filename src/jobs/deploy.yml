@@ -58,7 +58,7 @@ steps:
   - print_dependency_versions
   - add_ssh_known_hosts:
       known-hosts: << parameters.known-hosts >>
-  - prepare-trellis:
+  - prepare_trellis:
       trellis-repo: << parameters.trellis-repo >>
       trellis-branch: << parameters.trellis-branch >>
       vault-password: << parameters.vault-password >>
@@ -73,6 +73,6 @@ steps:
       and:
         - equal: [ "", << parameters.deploy-command >> ]
       steps:
-        - deploy-trellis:
+        - deploy_trellis:
             site-env: << parameters.site-env >>
             site-name: << parameters.site-name >>
