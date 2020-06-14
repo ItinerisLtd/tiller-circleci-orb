@@ -1,0 +1,12 @@
+description: Print dependency versions
+
+steps:
+  - run: python3 --version
+  - run: pip3 --version
+  - run: pip3 check
+  - run: virtualenv --version
+  - run: rsync --version
+  - run: trellis --version
+  - run: node --version || echo 'Not installed'
+  - run: npm --version || echo 'Not installed'
+  - run: yarn versions || echo 'Not installed'

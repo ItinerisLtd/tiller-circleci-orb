@@ -1,0 +1,14 @@
+description: Deploy Trellis
+
+parameters:
+  site-env:
+    type: string
+    description: "the environment to deploy to, e.g: staging, production, etc"
+  site-name:
+    type: string
+    description: the WordPress site to deploy as defined in wordpress_sites
+
+steps:
+  - deploy:
+      command: ansible-playbook deploy.yml -vvv -e env=<< parameters.site-env >> -e site=<< parameters.site-name >>
+      working_directory: trellis

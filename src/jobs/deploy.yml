@@ -1,0 +1,78 @@
+description: |
+  Deploy Trellis, Bedrock and Sage(optional) via CircleCI
+  Expecting Trellis and Bedrock to be 2 separate repositories https://github.com/roots/trellis/issues/883#issuecomment-329052189
+  Expecting build steps do not require local Bedrock source code https://github.com/roots/trellis/pull/997 OR https://github.com/roots/trellis/pull/1030
+
+parameters:
+  # add-ssh-known-hosts
+  known-hosts:
+    type: string
+    description: >
+      comma separated hosts you expected to connect include VCS and yourremote servers
+
+  # prepare-trellis
+  trellis-repo:
+    type: string
+    description: trellis repository. Must be a SSH URL
+  trellis-branch:
+    type: string
+    description: trellis branch, commit hash or tag
+    default: master
+  vault-password:
+    type: env_var_name
+    description: ansible vault password environment variable name
+    default: VAULT_PASSWORD
+  vault-password-file-name:
+    type: string
+    description: ansible vault password file to use. Must be the same one in ansible.cfg
+    default: .vault_pass
+
+  # deploy
+  site-env:
+    type: string
+    description: >
+      the environment to deploy to, e.g: staging, production, etc.
+      Ignored if using custom deploy command
+  site-name:
+    type: string
+    description: >
+      the WordPress site to deploy, as defined in wordpress_sites.
+      Ignored if using custom deploy command
+
+  # job
+  executor:
+    type: executor
+    default: default
+  setup:
+    type: steps
+    description: Provide any optitonal steps you would like to run prior to deployment
+    default: []
+  deploy-command:
+    type: string
+    description: custom deploy command
+    default: ""
+
+executor: << parameters.executor >>
+
+steps:
+  - print_dependency_versions
+  - add_ssh_known_hosts:
+      known-hosts: << parameters.known-hosts >>
+  - prepare-trellis:
+      trellis-repo: << parameters.trellis-repo >>
+      trellis-branch: << parameters.trellis-branch >>
+      vault-password: << parameters.vault-password >>
+      vault-password-file-name: << parameters.vault-password-file-name >>
+  - steps: << parameters.setup >>
+  - when:
+      and:
+        - equal: [ "", << parameters.deploy-command >> ]
+      steps:
+        deploy: << parameters.deploy-command >>
+  - unless:
+      and:
+        - equal: [ "", << parameters.deploy-command >> ]
+      steps:
+        - deploy-trellis:
+            site-env: << parameters.site-env >>
+            site-name: << parameters.site-name >>

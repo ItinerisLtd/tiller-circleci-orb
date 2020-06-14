@@ -1,0 +1,16 @@
+# How to author Executors: https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-executors
+description: |
+  Uses CircleCI's highly cached convenience images built for CI. Any available tag
+  from this list can be used:
+  https://hub.docker.com/r/itinerisltd/tiller-circleci/tags
+
+parameters:
+  tag:
+    type: string
+    default: base
+    description: |
+      Pick a specific itinerisltd/tiller-circleci image version tag:
+      https://hub.docker.com/r/itinerisltd/tiller-circleci/tags
+
+docker:
+  - image: itinerisltd/tiller-circleci:<<parameters.tag>>

@@ -1,0 +1,11 @@
+description: Add SSH known hosts
+
+parameters: &add_ssh_known_hosts_parameters
+  known-hosts:
+    type: string
+    description: comma separated hosts you expected to connect include VCS and your remote servers
+
+steps:
+  - run: mkdir ~/.ssh
+  - run: touch ~/.ssh/-
+  - run: ssh-keyscan -H << parameters.known-hosts >> >> ~/.ssh/known_hosts

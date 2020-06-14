@@ -1,0 +1,8 @@
+version: 2.1
+
+description: Deploy Trellis, Bedrock and Sage(optional) via CircleCI
+
+# This information will be displayed in the orb registry and is not mandatory.
+display:
+  # home_url: "https://www.website.com/docs"
+  source_url: "https://www.github.com/ItinerisLtd/tiller-circleci-orb/"
