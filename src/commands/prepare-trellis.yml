@@ -38,7 +38,7 @@ steps:
       command: trellis exec pip3 install --upgrade --upgrade-strategy eager -r requirements.txt
       working_directory: trellis
   - run:
-      command: ansible --version
+      command: trellis exec ansible --version
       working_directory: trellis
   - run:
       name: Install ansible galaxy roles
