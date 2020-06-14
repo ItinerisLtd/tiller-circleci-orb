@@ -10,5 +10,5 @@ parameters:
 
 steps:
   - deploy:
-      command: ansible-playbook deploy.yml -vvv -e env=<< parameters.site-env >> -e site=<< parameters.site-name >>
+      command: trellis exec ansible-playbook deploy.yml -vvv -e env=<< parameters.site-env >> -e site=<< parameters.site-name >>
       working_directory: trellis
