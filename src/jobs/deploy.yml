@@ -40,9 +40,12 @@ parameters:
       Ignored if using custom deploy command
 
   # job
-  executor:
-    type: executor
-    default: default
+  executor-tag:
+    type: string
+    description: |
+      Pick a specific itinerisltd/tiller-circleci image version tag:
+      https://hub.docker.com/r/itinerisltd/tiller-circleci/tags
+    default: base
   setup:
     type: steps
     description: Provide any optitonal steps you would like to run prior to deployment
@@ -52,7 +55,9 @@ parameters:
     description: custom deploy command
     default: ""
 
-executor: << parameters.executor >>
+executor:
+  name: default
+  tag: << parameters.executor-tag >>
 
 steps:
   - print_dependency_versions
