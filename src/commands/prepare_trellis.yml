@@ -50,3 +50,4 @@ steps:
         - /tmp/trellis
         - ~/.cache
         - trellis/.trellis
+        - trellis/vendor
