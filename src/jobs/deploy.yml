@@ -73,11 +73,11 @@ steps:
       condition:
         equal: [ "", << parameters.deploy-command >> ]
       steps:
-        deploy: << parameters.deploy-command >>
+        - deploy_trellis:
+            site-env: << parameters.site-env >>
+            site-name: << parameters.site-name >>
   - unless:
       condition:
         equal: [ "", << parameters.deploy-command >> ]
       steps:
-        - deploy_trellis:
-            site-env: << parameters.site-env >>
-            site-name: << parameters.site-name >>
+        deploy: << parameters.deploy-command >>
