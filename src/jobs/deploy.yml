@@ -70,13 +70,13 @@ steps:
       vault-password-file-name: << parameters.vault-password-file-name >>
   - steps: << parameters.setup >>
   - when:
-      and:
-        - equal: [ "", << parameters.deploy-command >> ]
+      condition:
+        equal: [ "", << parameters.deploy-command >> ]
       steps:
         deploy: << parameters.deploy-command >>
   - unless:
-      and:
-        - equal: [ "", << parameters.deploy-command >> ]
+      condition:
+        equal: [ "", << parameters.deploy-command >> ]
       steps:
         - deploy_trellis:
             site-env: << parameters.site-env >>
