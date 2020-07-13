@@ -7,5 +7,5 @@ parameters: &add_ssh_known_hosts_parameters
 
 steps:
   - run: mkdir ~/.ssh
-  - run: touch ~/.ssh/-
+  - run: touch ~/.ssh/known_hosts
   - run: ssh-keyscan -H << parameters.known-hosts >> >> ~/.ssh/known_hosts
