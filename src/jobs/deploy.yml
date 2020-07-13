@@ -8,7 +8,7 @@ parameters:
   known-hosts:
     type: string
     description: >
-      comma separated hosts you expected to connect include VCS and yourremote servers
+      comma separated hosts you expected to connect include VCS and the remote servers
 
   # prepare-trellis
   trellis-repo:
