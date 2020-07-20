@@ -1,6 +1,10 @@
 description: Clone the Trellis repo, set up ansible vault password and install ansible galaxy roles
 
 parameters:
+  cache-version:
+    type: string
+    default: v5
+    description: Change the default cache version if you need to clear the cache for any reason
   trellis-repo:
     type: string
     description: trellis repository. Must be a SSH URL
@@ -24,9 +28,9 @@ steps:
       working_directory: trellis
   - restore_cache:
       keys:
-        - v4-tiller-circleci-prepare-trellis-{{ .Branch }}-{{ .Revision }}-
-        - v4-tiller-circleci-prepare-trellis-{{ .Branch }}-
-        - v4-tiller-circleci-prepare-trellis-
+        - tiller-circleci-prepare-trellis-<< parameters.cache-version >>-{{ .Branch }}-{{ .Revision }}-
+        - tiller-circleci-prepare-trellis-<< parameters.cache-version >>-{{ .Branch }}-
+        - tiller-circleci-prepare-trellis-<< parameters.cache-version >>-
   - run:
       name: Set ansible vault password
       command: echo ${<< parameters.vault-password >>} > << parameters.vault-password-file-name >>
@@ -45,7 +49,7 @@ steps:
       command: trellis galaxy install
       working_directory: trellis
   - save_cache:
-      key: v4-tiller-circleci-prepare-trellis-{{ .Branch }}-{{ .Revision }}-{{ epoch }}
+      key: tiller-circleci-prepare-trellis-<< parameters.cache-version >>-{{ .Branch }}-{{ .Revision }}-{{ epoch }}
       paths:
         - /tmp/trellis
         - ~/.cache
