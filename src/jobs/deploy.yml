@@ -11,6 +11,10 @@ parameters:
       comma separated hosts you expected to connect include VCS and the remote servers
 
   # prepare-trellis
+  cache-version:
+    type: string
+    default: v5
+    description: Change the default cache version if you need to clear the cache for any reason
   trellis-repo:
     type: string
     description: trellis repository. Must be a SSH URL
@@ -64,6 +68,7 @@ steps:
   - add_ssh_known_hosts:
       known-hosts: << parameters.known-hosts >>
   - prepare_trellis:
+      cache-version: << parameters.cache-version >>
       trellis-repo: << parameters.trellis-repo >>
       trellis-branch: << parameters.trellis-branch >>
       vault-password: << parameters.vault-password >>
