@@ -13,7 +13,7 @@ parameters:
   # prepare-trellis
   cache-version:
     type: string
-    default: v6
+    default: v7
     description: Change the default cache version if you need to clear the cache for any reason
   trellis-repo:
     type: string
