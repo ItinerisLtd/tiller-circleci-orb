@@ -26,11 +26,6 @@ steps:
       name: Clone Trellis repo
       command: git clone --verbose --branch << parameters.trellis-branch >> --depth 1 << parameters.trellis-repo >> .
       working_directory: trellis
-  - restore_cache:
-      keys:
-        - tiller-circleci-prepare-trellis-o1-<< parameters.cache-version >>-{{ .Branch }}-{{ .Revision }}-
-        - tiller-circleci-prepare-trellis-o1-<< parameters.cache-version >>-{{ .Branch }}-
-        - tiller-circleci-prepare-trellis-o1-<< parameters.cache-version >>-
   - run:
       name: Set ansible vault password
       command: echo ${<< parameters.vault-password >>} > << parameters.vault-password-file-name >>
